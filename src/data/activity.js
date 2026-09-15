@@ -26,7 +26,7 @@ export const mockActivity = [
     id: 'act-02',
     type: 'document',
     title: '2025 Financial Statements uploaded',
-    detail: 'Uploaded by Dr. Michael Carter and routed to Elena Vasquez for review.',
+    detail: 'Uploaded by Dr. Michael Carter and routed to your deal team for review.',
     date: 'Sep 14, 2026',
     time: '4:26 PM',
     actor: 'Dr. Michael Carter',
@@ -40,7 +40,7 @@ export const mockActivity = [
     detail: 'Buyer #8 (private equity platform, Southwest region) executed the confidentiality agreement.',
     date: 'Sep 13, 2026',
     time: '11:04 AM',
-    actor: 'David Reynolds',
+    actor: 'SMB deal team',
   },
   {
     id: 'act-04',
@@ -49,7 +49,7 @@ export const mockActivity = [
     detail: 'Confidential Information Memorandum released to Buyer #8 following NDA execution.',
     date: 'Sep 13, 2026',
     time: '11:31 AM',
-    actor: 'David Reynolds',
+    actor: 'SMB deal team',
   },
   {
     id: 'act-05',
@@ -67,7 +67,7 @@ export const mockActivity = [
     detail: 'Initial Buyer Review scheduled for September 25, 2026.',
     date: 'Sep 11, 2026',
     time: '2:15 PM',
-    actor: 'Sarah Mitchell',
+    actor: 'SMB deal team',
   },
   {
     id: 'act-07',
@@ -76,7 +76,7 @@ export const mockActivity = [
     detail: 'Owner Information Form requested — due September 22, 2026.',
     date: 'Sep 11, 2026',
     time: '2:02 PM',
-    actor: 'Sarah Mitchell',
+    actor: 'SMB deal team',
     link: '/requests',
     linkLabel: 'Go to requests',
   },
@@ -87,7 +87,7 @@ export const mockActivity = [
     detail: '2025 Financial Statements requested — due September 20, 2026.',
     date: 'Sep 10, 2026',
     time: '10:38 AM',
-    actor: 'Elena Vasquez',
+    actor: 'SMB deal team',
     link: '/requests',
     linkLabel: 'Go to requests',
   },
@@ -98,7 +98,7 @@ export const mockActivity = [
     detail: 'Buyer #3 requested a virtual management meeting for the week of September 29.',
     date: 'Sep 9, 2026',
     time: '3:55 PM',
-    actor: 'David Reynolds',
+    actor: 'SMB deal team',
   },
   {
     id: 'act-10',
@@ -107,7 +107,7 @@ export const mockActivity = [
     detail: 'Round 1 buyer questions compiled for your review ahead of the initial buyer review meeting.',
     date: 'Sep 9, 2026',
     time: '8:20 AM',
-    actor: 'David Reynolds',
+    actor: 'SMB deal team',
   },
   {
     id: 'act-11',
@@ -116,7 +116,7 @@ export const mockActivity = [
     detail: 'Buyer #7 (regional physician group) executed the confidentiality agreement.',
     date: 'Sep 4, 2026',
     time: '1:12 PM',
-    actor: 'David Reynolds',
+    actor: 'SMB deal team',
   },
   {
     id: 'act-12',
@@ -134,6 +134,6 @@ export const mockActivity = [
     detail: 'Trailing twelve month payer mix accepted and incorporated into the valuation narrative.',
     date: 'Aug 21, 2026',
     time: '5:03 PM',
-    actor: 'Elena Vasquez',
+    actor: 'SMB deal team',
   },
 ];

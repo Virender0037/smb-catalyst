@@ -4,12 +4,11 @@ import EngagementPanel from '../components/dashboard/EngagementPanel';
 import DashboardSkeleton from '../components/dashboard/DashboardSkeleton';
 import ActivityItem from '../components/ActivityItem';
 import Sparkline from '../components/charts/Sparkline';
-import { Avatar, Badge, Card, CardHead, Delta, Icon } from '../components/ui';
+import { Badge, Card, CardHead, Delta, Icon } from '../components/ui';
 import { mockActivity } from '../data/activity';
 import { mockEngagement, mockMilestones } from '../data/engagement';
 import { defaultRangeId, getMarketingTotals, marketingRanges, mockListing } from '../data/marketing';
 import { usePortalState } from '../lib/portalState';
-import { mockTeam } from '../data/team';
 import { formatNumber, statusTone } from '../lib/format';
 
 const LOAD_FLAG = 'smb.demo.overviewLoaded';
@@ -170,6 +169,29 @@ export default function Overview() {
               </Badge>
             </div>
           </Card>
+        </div>
+
+        {/* ---------------------------------------- rail */}
+        <div className="dash-col">
+          <Card aria-labelledby="recent-heading">
+            <CardHead
+              id="recent-heading"
+              title="Recent activity"
+              sub="Last 7 days"
+              action={
+                <Link to="/activity" className="btn btn-link" style={{ fontSize: 'var(--fs-sm)' }}>
+                  See all
+                </Link>
+              }
+            />
+            <div className="card-body">
+              <ul className="timeline">
+                {recent.map((item) => (
+                  <ActivityItem key={item.id} item={item} />
+                ))}
+              </ul>
+            </div>
+          </Card>
 
           {/* Forward view — what the client should expect, and when */}
           <Card aria-labelledby="milestones-heading">
@@ -209,58 +231,6 @@ export default function Overview() {
               <span className="muted-3" style={{ fontSize: 'var(--fs-xs)' }}>
                 Dates are indicative and confirmed with you before each step.
               </span>
-              <Link to="/messages" className="btn btn-link" style={{ fontSize: 'var(--fs-sm)' }}>
-                Ask Sarah <Icon name="arrowRight" size={14} />
-              </Link>
-            </div>
-          </Card>
-        </div>
-
-        {/* ---------------------------------------- rail */}
-        <div className="dash-col">
-          <Card aria-labelledby="recent-heading">
-            <CardHead
-              id="recent-heading"
-              title="Recent activity"
-              sub="Last 7 days"
-              action={
-                <Link to="/activity" className="btn btn-link" style={{ fontSize: 'var(--fs-sm)' }}>
-                  See all
-                </Link>
-              }
-            />
-            <div className="card-body">
-              <ul className="timeline">
-                {recent.map((item) => (
-                  <ActivityItem key={item.id} item={item} />
-                ))}
-              </ul>
-            </div>
-          </Card>
-
-          <Card aria-labelledby="team-heading">
-            <CardHead id="team-heading" title="Your SMB team" sub="Assigned to this engagement" />
-            <div style={{ marginTop: 16 }}>
-              {mockTeam.slice(0, 3).map((m) => (
-                <div className="team-row" key={m.id}>
-                  <Avatar name={m.name} initials={m.initials} tone={m.lead ? 'accent' : ''} />
-                  <div className="team-row-body">
-                    <p className="team-row-name truncate">{m.name}</p>
-                    <p className="team-row-role truncate">{m.role}</p>
-                  </div>
-                  <Link to="/messages" className="btn btn-icon" aria-label={`Message ${m.name}`}>
-                    <Icon name="message" size={17} />
-                  </Link>
-                </div>
-              ))}
-            </div>
-            <div className="card-foot">
-              <Link to="/team" className="btn btn-link" style={{ fontSize: 'var(--fs-sm)' }}>
-                View full team <Icon name="arrowRight" size={14} />
-              </Link>
-              <Link to="/messages" className="btn btn-secondary btn-sm" style={{ textDecoration: 'none' }}>
-                <Icon name="message" size={14} /> Message
-              </Link>
             </div>
           </Card>
         </div>

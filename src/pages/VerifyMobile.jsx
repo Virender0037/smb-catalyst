@@ -88,7 +88,7 @@ export default function VerifyMobile() {
           leadingIcon="phone"
           value={newNumber}
           onChange={(e) => setNewNumber(e.target.value)}
-          hint="Sarah Mitchell will call the number currently on file to confirm this change."
+          hint="Your deal team will call the number currently on file to confirm this change."
         />
       </Modal>
     </AuthLayout>

@@ -65,13 +65,13 @@ src/
     layout/       AppShell (sidebar/topbar/drawer), AuthLayout, MfaSteps, nav config
     dashboard/    EngagementPanel, DashboardSkeleton
   pages/          Login, VerifyMobile, VerifyCode, Overview, Marketing,
-                  Documents, Requests, Activity, Messages, Team, NotFound
+                  Documents, Requests, Activity, NotFound
 ```
 
 ## Replacing the mock data
 
 Every screen imports data from `src/data/` (re-exported by `src/data/index.js`).
-Anything the prototype mutates locally — documents, requests, conversations —
+Anything the prototype mutates locally — documents and requests —
 flows through `src/lib/portalState.jsx`, which is seeded from those same mocks.
 
 To go live: swap the mock imports in `portalState.jsx` for Catalyst function

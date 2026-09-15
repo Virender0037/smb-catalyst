@@ -168,6 +168,10 @@
 .notif-title { font-size: var(--fs-sm); font-weight: 600; color: var(--brand-secondary); }
 .notif-text { font-size: var(--fs-xs); color: var(--text-muted); margin-top: 1px; }
 .notif-time { font-size: var(--fs-2xs); color: var(--text-muted); margin-top: 4px; }
+.notif-unread-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--brand-accent); flex: none; margin-top: 6px;
+}
 
 /* ---------- Main ------------------------------------------- */
 .main { margin-left: var(--sidebar-w); min-height: 100dvh; display: flex; flex-direction: column; }

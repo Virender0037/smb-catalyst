@@ -215,7 +215,7 @@ export default function Requests() {
         </label>
         <div className="auth-alert auth-alert-info" style={{ animation: 'none' }}>
           <Icon name="lock" size={16} />
-          <span>Only {active?.requestedBy} and your assigned SMB team can open what you send here.</span>
+          <span>Only your assigned Strategic Medical Brokers deal team can open what you send here.</span>
         </div>
       </Modal>
     </div>

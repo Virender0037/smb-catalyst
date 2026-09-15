@@ -1,0 +1,29 @@
+{
+  "defaults": {
+    "project": 1
+  },
+  "actives": {
+    "project": 1,
+    "env": 1
+  },
+  "projects": [
+    {
+      "idx": 1,
+      "id": "108728000000030001",
+      "name": "SMB-Client-Portal",
+      "domain": {
+        "id": "10134084838",
+        "name": "smb-client-portal-938512496.development"
+      },
+      "timezone": "Asia/Kolkata",
+      "env": [
+        {
+          "idx": 1,
+          "id": "938512496",
+          "name": "Development",
+          "type": 3
+        }
+      ]
+    }
+  ]
+}

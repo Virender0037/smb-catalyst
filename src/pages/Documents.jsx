@@ -266,7 +266,7 @@ export default function Documents() {
                     <td className="num td-nowrap">{d.uploadedOn}</td>
                     <td className="td-nowrap">
                       {d.uploadedBy}
-                      <div className="doc-sub">{d.uploadedByRole}</div>
+                      {d.uploadedByRole && <div className="doc-sub">{d.uploadedByRole}</div>}
                     </td>
                     <td>
                       <Badge tone={statusTone(d.status)}>{d.status}</Badge>

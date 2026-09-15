@@ -1,6 +1,6 @@
 import Logo from '../ui/Logo';
 import Icon from '../ui/Icon';
-import { mockSupport } from '../../data/team';
+import { mockSupport } from '../../data/support';
 
 /**
  * Split-canvas authentication layout shared by sign-in and MFA.

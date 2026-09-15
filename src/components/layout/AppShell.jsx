@@ -6,18 +6,14 @@ import { Avatar, Badge } from '../ui';
 import { navItems, pageMeta } from './nav';
 import { mockClient, mockUser } from '../../data/client';
 import { mockNotifications } from '../../data/notifications';
-import { mockSupport } from '../../data/team';
+import { mockSupport } from '../../data/support';
 import { useDismissable, useIsTabletDown, useLockBodyScroll } from '../../lib/hooks';
 import { useSession } from '../../lib/session';
 import { usePortalState } from '../../lib/portalState';
 
 function NavList({ onNavigate }) {
   const state = usePortalState();
-  const badgeFor = (item) => {
-    if (item.badgeKey === 'openRequests') return state.openRequests.length;
-    if (item.badgeKey === 'unreadMessages') return state.unreadMessages;
-    return 0;
-  };
+  const badgeFor = (item) => (item.badgeKey === 'openRequests' ? state.openRequests.length : 0);
 
   return (
     <nav className="sidebar-nav" aria-label="Portal sections">
@@ -83,7 +79,7 @@ function NotificationsMenu({ open, onClose }) {
                 {n.time}
               </span>
             </span>
-            {n.unread && <span className="msg-unread-dot" aria-label="Unread" />}
+            {n.unread && <span className="notif-unread-dot" aria-label="Unread" />}
           </Link>
         ))}
       </div>
@@ -103,9 +99,6 @@ function ProfileMenu({ open, onClose, onSignOut }) {
           Last sign-in {mockUser.lastLogin}
         </p>
       </div>
-      <Link to="/team" className="menu-item" role="menuitem" onClick={onClose}>
-        <Icon name="team" size={17} /> Your SMB team
-      </Link>
       <button type="button" className="menu-item" role="menuitem" onClick={onClose}>
         <Icon name="settings" size={17} /> Account settings
       </button>

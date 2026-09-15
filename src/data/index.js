@@ -22,6 +22,5 @@ export {
 export { mockDocuments, documentCategories } from './documents';
 export { mockRequests, requestStatuses } from './requests';
 export { mockActivity, activityTypes } from './activity';
-export { mockConversations } from './messages';
-export { mockTeam, mockSupport } from './team';
+export { mockSupport } from './support';
 export { mockNotifications } from './notifications';

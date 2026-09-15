@@ -12,8 +12,6 @@ import Marketing from './pages/Marketing';
 import Documents from './pages/Documents';
 import Requests from './pages/Requests';
 import Activity from './pages/Activity';
-import Messages from './pages/Messages';
-import Team from './pages/Team';
 import NotFound from './pages/NotFound';
 
 /** Gate for the authenticated portal. Front-end only — see lib/session.jsx. */
@@ -68,8 +66,6 @@ export default function App() {
         <Route path="/documents" element={<Documents />} />
         <Route path="/requests" element={<Requests />} />
         <Route path="/activity" element={<Activity />} />
-        <Route path="/messages" element={<Messages />} />
-        <Route path="/team" element={<Team />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

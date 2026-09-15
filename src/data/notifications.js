@@ -5,11 +5,11 @@
 export const mockNotifications = [
   {
     id: 'ntf-1',
-    title: 'Message from Sarah Mitchell',
-    text: 'Buyer shortlist added ahead of the September 25 review.',
+    title: 'Buyer review agenda published',
+    text: 'Agenda for the September 25 initial buyer review is now available.',
     time: '2 hours ago',
     unread: true,
-    link: '/messages',
+    link: '/documents',
   },
   {
     id: 'ntf-2',

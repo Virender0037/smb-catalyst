@@ -11,7 +11,7 @@ export const mockEngagement = {
   nextMilestone: 'Initial Buyer Review',
   nextMilestoneDate: 'September 25, 2026',
   nextMilestoneNote:
-    'Sarah will present the qualified buyer shortlist and indications of interest received to date.',
+    'Your deal team will present the qualified buyer shortlist and indications of interest received to date.',
   stages: [
     { id: 'engagement', label: 'Engagement', state: 'done', completedOn: 'Feb 3, 2026' },
     { id: 'valuation', label: 'Valuation', state: 'done', completedOn: 'Feb 26, 2026' },
