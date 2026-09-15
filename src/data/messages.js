@@ -1,0 +1,122 @@
+/**
+ * Secure portal messaging.
+ * Replacement path: Catalyst function -> messaging store + notification service.
+ */
+export const mockConversations = [
+  {
+    id: 'cnv-1',
+    participantId: 'tm-1',
+    name: 'Sarah Mitchell',
+    role: 'Senior M&A Advisor',
+    initials: 'SM',
+    unread: 2,
+    lastActivity: '9:42 AM',
+    preview: 'I have added the two buyers who signed NDAs this week to the shortlist for our September 25 review.',
+    messages: [
+      {
+        id: 'm-1',
+        from: 'them',
+        day: 'Friday, September 11',
+        time: '2:08 PM',
+        body: 'Good afternoon Dr. Carter — I have scheduled our Initial Buyer Review for September 25 at 10:00 AM MST. I will walk you through every buyer who has executed an NDA and where each one stands.',
+      },
+      {
+        id: 'm-2',
+        from: 'me',
+        day: 'Friday, September 11',
+        time: '4:35 PM',
+        body: 'That works. Should I have anything prepared for that conversation?',
+      },
+      {
+        id: 'm-3',
+        from: 'them',
+        day: 'Friday, September 11',
+        time: '4:51 PM',
+        body: 'Nothing formal. It would help if the 2025 financial statements are uploaded before then so the numbers we discuss are final. Elena raised that request in the portal.',
+      },
+      {
+        id: 'm-4',
+        from: 'me',
+        day: 'Monday, September 14',
+        time: '4:26 PM',
+        body: 'Uploaded the 2025 statements this afternoon. Let me know if anything looks off.',
+        attachment: { name: '2025-Financial-Statements.pdf', size: '1.4 MB', type: 'pdf' },
+      },
+      {
+        id: 'm-5',
+        from: 'them',
+        day: 'Today',
+        time: '9:40 AM',
+        body: 'Received, thank you. Elena is reviewing them now and will flag anything that needs clarification.',
+      },
+      {
+        id: 'm-6',
+        from: 'them',
+        day: 'Today',
+        time: '9:42 AM',
+        body: 'I have added the two buyers who signed NDAs this week to the shortlist for our September 25 review. The agenda is attached.',
+        attachment: { name: 'Initial-Buyer-Review-Agenda.pdf', size: '284 KB', type: 'pdf' },
+      },
+    ],
+  },
+  {
+    id: 'cnv-2',
+    participantId: 'tm-2',
+    name: 'David Reynolds',
+    role: 'Transaction Advisor',
+    initials: 'DR',
+    unread: 0,
+    lastActivity: 'Sep 13',
+    preview: 'Buyer #8 executed the NDA this morning and the CIM has been released to them.',
+    messages: [
+      {
+        id: 'm-1',
+        from: 'them',
+        day: 'Wednesday, September 9',
+        time: '8:22 AM',
+        body: 'I have compiled the first round of buyer questions. Most centre on provider retention and the payer mix — nothing unusual for a practice of this size.',
+        attachment: { name: 'Buyer-Question-Log-R1.docx', size: '78 KB', type: 'docx' },
+      },
+      {
+        id: 'm-2',
+        from: 'me',
+        day: 'Wednesday, September 9',
+        time: '12:10 PM',
+        body: 'Thanks David. Two of my providers have already signed three-year agreements, which should help on retention.',
+      },
+      {
+        id: 'm-3',
+        from: 'them',
+        day: 'Sunday, September 13',
+        time: '11:06 AM',
+        body: 'Buyer #8 executed the NDA this morning and the CIM has been released to them. That brings us to eight executed NDAs.',
+      },
+    ],
+  },
+  {
+    id: 'cnv-3',
+    participantId: 'tm-3',
+    name: 'Elena Vasquez',
+    role: 'Healthcare Valuation Analyst',
+    initials: 'EV',
+    unread: 0,
+    lastActivity: 'Sep 10',
+    preview: 'I have opened a request for the 2025 financial statements in the portal.',
+    messages: [
+      {
+        id: 'm-1',
+        from: 'them',
+        day: 'Thursday, September 10',
+        time: '10:36 AM',
+        body: 'Good morning — I have opened a request for the 2025 financial statements in the portal. Compiled or reviewed statements are both fine; we simply need the final year-end figures.',
+      },
+      {
+        id: 'm-2',
+        from: 'me',
+        day: 'Thursday, September 10',
+        time: '1:14 PM',
+        body: 'Understood. My accountant should have them finalised by the end of this week.',
+      },
+    ],
+  },
+];

@@ -1,0 +1,5 @@
+node_modules
+dist
+.catalyst
+*.log
+.DS_Store

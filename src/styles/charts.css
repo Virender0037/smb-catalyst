@@ -1,0 +1,24 @@
+/* ============================================================
+   Charts
+   ============================================================ */
+.chart { width: 100%; min-width: 0; }
+.chart svg:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 4px; border-radius: var(--r-sm); }
+
+.chart-tip {
+  position: absolute; transform: translateX(-50%);
+  background: var(--brand-dark); color: #fff;
+  border-radius: var(--r-md); padding: 7px 11px;
+  box-shadow: var(--sh-lg); pointer-events: none;
+  display: flex; flex-direction: column; gap: 1px; white-space: nowrap;
+  z-index: 5;
+}
+.chart-tip-label { font-size: var(--fs-2xs); color: #9FB6CC; letter-spacing: 0.02em; }
+.chart-tip-value {
+  font-size: var(--fs-base); font-weight: 600; font-variant-numeric: tabular-nums;
+}
+.chart-tip-value em { font-style: normal; font-weight: 400; font-size: var(--fs-xs); color: #B9CBDC; }
+
+.chart-note {
+  font-size: var(--fs-2xs); color: var(--smb-text-3);
+  padding: 0 var(--sp-5) var(--sp-4);
+}

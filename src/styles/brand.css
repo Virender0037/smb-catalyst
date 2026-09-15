@@ -1,0 +1,30 @@
+/* ============================================================
+   Official logo placement
+
+   The published SMB logo has no reverse/white variant, so it is
+   only ever placed on a light surface and never recoloured.
+   `width: auto` keeps the original aspect ratio at every size.
+   ============================================================ */
+.logo {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  /* clear space — roughly half the monogram height on each side */
+  flex: none;
+}
+
+.logo-mark {
+  display: block;
+  width: auto;
+  flex: none;
+}
+
+/* Light plate the logo can sit on when the surrounding surface is dark. */
+.logo-plate {
+  display: inline-flex;
+  align-items: center;
+  background: var(--brand-surface);
+  border-radius: var(--r-lg);
+  padding: 10px var(--sp-4);
+  box-shadow: var(--sh-sm);
+}

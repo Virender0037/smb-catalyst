@@ -1,0 +1,98 @@
+/* ============================================================
+   Reset + base typography
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+  color: var(--smb-text);
+  background: var(--smb-canvas);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, p, figure, blockquote, dl, dd { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+/* The UA gives fieldset `min-inline-size: min-content`, which stops flex
+   children (such as the OTP row) from shrinking and overflows the container. */
+fieldset { min-inline-size: 0; min-width: 0; border: 0; padding: 0; margin: 0; }
+input, select, textarea { min-width: 0; }
+
+h1, h2, h3, h4 {
+  line-height: var(--lh-tight);
+  letter-spacing: -0.017em;
+  font-weight: 600;
+  color: var(--smb-text);
+}
+
+/* Display serif — the website's heading face. Reserved for page and
+   panel titles; UI chrome and data stay in the sans for density. */
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+h1 { font-size: var(--fs-2xl); }
+h2 { font-size: var(--fs-xl); }
+h3 { font-size: var(--fs-lg); }
+h4 { font-size: var(--fs-md); }
+
+a { color: var(--brand-primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+img, svg { max-width: 100%; display: block; }
+
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: none; padding: 0; }
+button:disabled { cursor: not-allowed; }
+
+table { border-collapse: collapse; width: 100%; }
+
+/* Visible, consistent focus for keyboard users only */
+:focus { outline: none; }
+:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+  border-radius: var(--r-xs);
+}
+.on-dark :focus-visible { outline-color: var(--brand-accent); }
+
+::selection { background: var(--brand-light); color: var(--brand-dark); }
+
+/* ---- Utilities -------------------------------------------- */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute; left: var(--sp-4); top: -60px; z-index: 200;
+  background: var(--brand-primary); color: #fff; padding: 10px 16px;
+  border-radius: var(--r-md); font-weight: 600; font-size: var(--fs-sm);
+  transition: top var(--t-base) var(--ease);
+}
+.skip-link:focus { top: var(--sp-4); text-decoration: none; }
+
+.num { font-variant-numeric: tabular-nums; font-feature-settings: 'tnum' 1; }
+.truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+
+.eyebrow {
+  font-size: var(--fs-2xs);
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--smb-text-3);
+}
+.eyebrow-light { color: var(--smb-text-inverse-2); }
+
+.muted { color: var(--smb-text-2); }
+.muted-3 { color: var(--smb-text-3); }

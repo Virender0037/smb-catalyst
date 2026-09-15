@@ -1,0 +1,164 @@
+/* ============================================================
+   Strategic Medical Brokers — Design Tokens
+
+   Colour and type are taken from the live public website,
+   https://strategicmedicalbrokers.com (Astra global palette +
+   colours sampled from the official logo asset). Nothing here
+   is invented brand colour.
+
+     --ast-global-color-0  #0faeeb   CTA / link blue
+     --ast-global-color-1  #363772   headings
+     --ast-global-color-2  #363772   body text
+     --ast-global-color-3  #61668f   secondary text
+     --ast-global-color-4  #f3f6f6   alternate background
+     --ast-global-color-5  #ffffff   surface
+     --ast-global-color-6  #01023b   dark
+     --ast-global-color-7  #effafd   subtle background
+     --ast-border-color    #dddddd   borders
+     logo deep blue        #1870b8   (sampled from png-new-02-01.png)
+     logo cyan             #10a8e8   (== #0faeeb)
+   ============================================================ */
+
+:root {
+  /* ---- Brand ------------------------------------------------ */
+  /* The site's CTA blue (#0FAEEB) is only 2.5:1 against white, so it
+     is used as a graphical/accent colour. The logo's deeper blue
+     carries text-bearing surfaces at 5.2:1. Both are official. */
+  --brand-primary: #1870B8;
+  --brand-primary-hover: #135A93;
+  --brand-primary-active: #0F4A7A;
+  --brand-secondary: #363772;
+  --brand-secondary-hover: #2A2B5C;
+  --brand-accent: #0FAEEB;
+  --brand-accent-hover: #0C97CE;
+  --brand-dark: #01023B;
+  --brand-light: #EFFAFD;
+  --brand-background: #F3F6F6;
+  --brand-surface: #FFFFFF;
+  --brand-border: #DDDDDD;
+
+  --text-primary: #363772;
+  --text-secondary: #565B87;
+  --text-muted: #61668F;
+  --text-inverse: #FFFFFF;
+  --text-inverse-muted: #A8B0D0;
+
+  /* ---- Semantic --------------------------------------------- */
+  --success: #0F7A47;
+  --success-bg: #E6F6EE;
+  --success-line: #B7E4CD;
+  --warning: #9A5B06;
+  --warning-bg: #FDF3E2;
+  --warning-line: #F3DDB4;
+  --danger: #B3261E;
+  --danger-bg: #FDECEA;
+  --danger-line: #F5C9C5;
+  --info: #1870B8;
+  --info-bg: #EFFAFD;
+  --info-line: #C2E7F7;
+
+  /* ---- Derived brand tints ---------------------------------- */
+  --brand-dark-soft: #14153F;
+  --brand-secondary-light: #4A4F86;
+  --brand-light-strong: #C2E7F7;
+
+  /* ---- Neutral surfaces used by the component layer --------- */
+  --smb-white: #FFFFFF;
+  --smb-canvas: var(--brand-background);
+  --smb-surface: var(--brand-surface);
+  --smb-surface-2: #FAFBFC;
+  --smb-line: #E6E9EF;
+  --smb-line-strong: var(--brand-border);
+  --smb-text: var(--text-primary);
+  --smb-text-2: var(--text-secondary);
+  --smb-text-3: var(--text-muted);
+  --smb-text-inverse: #FFFFFF;
+  --smb-text-inverse-2: var(--text-inverse-muted);
+
+  --smb-success: var(--success);
+  --smb-success-bg: var(--success-bg);
+  --smb-success-line: var(--success-line);
+  --smb-warn: var(--warning);
+  --smb-warn-bg: var(--warning-bg);
+  --smb-warn-line: var(--warning-line);
+  --smb-danger: var(--danger);
+  --smb-danger-bg: var(--danger-bg);
+  --smb-danger-line: var(--danger-line);
+  --smb-info: var(--info);
+  --smb-info-bg: var(--info-bg);
+  --smb-info-line: var(--info-line);
+
+  /* ---- Data-viz (brand blues + a neutral) ------------------- */
+  --viz-1: #1870B8;   /* impressions  — brand primary */
+  --viz-2: #0FAEEB;   /* detail views — brand accent  */
+  --viz-3: #363772;   /* leads        — brand indigo  */
+  --viz-4: #8C92B5;   /* favorites    — neutral       */
+  --viz-grid: #E8ECF3;
+  --viz-axis: #61668F;
+
+  /* ---- Typography ------------------------------------------- */
+  /* The website pairs DM Serif Display headings with a native
+     system sans for body copy. The portal keeps that pairing but
+     reserves the serif for display moments so data stays dense. */
+  --font-display: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-serif;
+
+  --fs-2xs: 0.6875rem;  /* 11 */
+  --fs-xs:  0.75rem;    /* 12 */
+  --fs-sm:  0.8125rem;  /* 13 */
+  --fs-base:0.875rem;   /* 14 */
+  --fs-md:  0.9375rem;  /* 15 */
+  --fs-lg:  1.0625rem;  /* 17 */
+  --fs-xl:  1.25rem;    /* 20 */
+  --fs-2xl: 1.5rem;     /* 24 */
+  --fs-3xl: 1.875rem;   /* 30 */
+  --fs-4xl: 2.375rem;   /* 38 */
+  --fs-5xl: 3rem;       /* 48 */
+  --lh-tight: 1.15;
+  --lh-snug: 1.35;
+  --lh-normal: 1.55;
+
+  /* ---- Spacing (4pt) ---------------------------------------- */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 20px; --sp-6: 24px; --sp-7: 32px; --sp-8: 40px;
+  --sp-9: 48px; --sp-10: 64px; --sp-11: 80px;
+
+  /* ---- Radius ----------------------------------------------- */
+  /* The website's CTAs are fully rounded; buttons and chips carry
+     that through, while containers stay squarer for data density. */
+  --r-xs: 4px; --r-sm: 6px; --r-md: 8px; --r-lg: 12px;
+  --r-xl: 16px; --r-pill: 999px;
+  --r-button: 999px;
+
+  /* ---- Elevation -------------------------------------------- */
+  --sh-xs: 0 1px 2px rgba(1, 2, 59, 0.05);
+  --sh-sm: 0 1px 2px rgba(1, 2, 59, 0.06), 0 1px 3px rgba(1, 2, 59, 0.05);
+  --sh-md: 0 2px 4px rgba(1, 2, 59, 0.05), 0 6px 16px rgba(1, 2, 59, 0.08);
+  --sh-lg: 0 8px 28px rgba(1, 2, 59, 0.16);
+  --sh-focus: 0 0 0 3px rgba(15, 174, 235, 0.38);
+  --sh-focus-dark: 0 0 0 3px rgba(15, 174, 235, 0.5);
+
+  /* ---- Motion ----------------------------------------------- */
+  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --t-fast: 120ms;
+  --t-base: 180ms;
+
+  /* ---- Layout ----------------------------------------------- */
+  --sidebar-w: 264px;
+  --sidebar-w-compact: 76px;
+  --topbar-h: 64px;
+  --content-max: 1360px;
+  --z-drawer: 60;
+  --z-modal: 80;
+  --z-toast: 90;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
