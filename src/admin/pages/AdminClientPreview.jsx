@@ -10,6 +10,13 @@ import { portalUserRoles } from '../data';
 import { fileClass } from '../lib/adminFormat';
 import { formatNumber } from '../../lib/format';
 
+/** Portal-user role name -> the role record in Roles & Permissions. */
+const ROLE_IDS = {
+  Owner: 'owner',
+  'Practice Administrator': 'practice-admin',
+  'Outside Advisor': 'outside-advisor',
+};
+
 /**
  * PREVIEW AS CLIENT — read-only.
  *
@@ -40,44 +47,45 @@ export default function AdminClientPreview() {
 
   const vis = client.visibility;
 
-  /* Role capabilities, mirroring the defaults in Roles & Permissions. */
+  /* Capabilities come from the live Roles & Permissions matrix, so a change
+     there is reflected here immediately — that is the whole point of the
+     preview. ROLE_IDS maps the user-facing role name to its role record. */
+  const roleRecord = state.roles.find((r) => r.id === ROLE_IDS[role]);
+  const perms = roleRecord?.permissions ?? {};
   const can = {
-    Owner: { financials: true, dealTerms: true, buyers: true, identities: true, marketing: true, requests: true },
-    'Practice Administrator': {
-      financials: false,
-      dealTerms: false,
-      buyers: false,
-      identities: false,
-      marketing: false,
-      requests: true,
-    },
-    'Outside Advisor': {
-      financials: true,
-      dealTerms: true,
-      buyers: false,
-      identities: false,
-      marketing: false,
-      requests: true,
-    },
-  }[role];
+    overview: perms['view-overview'],
+    financials: perms['view-financials'],
+    dealTerms: perms['view-deal-terms'],
+    buyers: perms['view-buyer-activity'],
+    identities: perms['view-buyer-identities'],
+    marketing: perms['view-marketing'],
+    documents: perms['view-documents'],
+    download: perms['download-documents'],
+    requests: perms['view-requests'],
+  };
 
   const showBuyers = vis.buyerActivity && can.buyers && vis.buyerIdentities !== 'Hidden';
   const showMarketing = vis.marketingActivity && can.marketing && Boolean(listing);
 
-  const visibleDocs = documents.filter((d) => {
-    if (d.archived) return false;
-    if (d.visibility === 'Internal only') return false;
-    if (vis.documentCategories[d.category] === false) return false;
-    if (d.visibility === 'Restricted by role' && !d.restrictedRoles.includes(role)) return false;
-    if (d.category === 'Financials' && !can.financials) return false;
-    return true;
-  });
+  const visibleDocs = !can.documents
+    ? []
+    : documents.filter((d) => {
+        if (d.archived) return false;
+        if (d.visibility === 'Internal only') return false;
+        if (vis.documentCategories[d.category] === false) return false;
+        if (d.visibility === 'Restricted by role' && !d.restrictedRoles.includes(role)) return false;
+        if (d.category === 'Financials' && !can.financials) return false;
+        if (d.category === 'Valuation' && !can.financials) return false;
+        return true;
+      });
 
   const visibleRequests = can.requests
     ? requests.filter((r) => r.status !== 'Completed' || r.completedOn)
     : [];
 
-  const buyerLabel = (i) => (vis.buyerIdentities === 'Named' ? `Buyer ${i + 1} — named group` : `Buyer #${i + 1}`);
+  /* Named buyers need BOTH the client's setting and the role's permission. */
+  const namedBuyers = vis.buyerIdentities === 'Named' && can.identities;
+  const buyerLabel = (i) => (namedBuyers ? `Buyer ${i + 1} — named group` : `Buyer #${i + 1}`);
 
   const hiddenCount = documents.length - visibleDocs.length;
 
@@ -302,7 +310,9 @@ export default function AdminClientPreview() {
               <div style={{ padding: 'var(--sp-5)' }}>
                 <div className="ad-hidden-note">
                   <Icon name="eyeOff" size={18} />
-                  No documents are visible to this role under the current settings.
+                  {can.documents
+                    ? 'No documents are visible to this role under the current settings.'
+                    : `Documents are not available to the ${role} role.`}
                 </div>
               </div>
             ) : (
@@ -317,10 +327,14 @@ export default function AdminClientPreview() {
                       {d.category} · {d.uploadedOn} · {d.size}
                     </p>
                   </div>
-                  {d.watermark && (
-                    <Badge tone="info">
-                      <Icon name="droplet" size={12} /> Watermarked
-                    </Badge>
+                  {!can.download ? (
+                    <Badge tone="neutral">View only</Badge>
+                  ) : (
+                    d.watermark && (
+                      <Badge tone="info">
+                        <Icon name="droplet" size={12} /> Watermarked
+                      </Badge>
+                    )
                   )}
                 </div>
               ))

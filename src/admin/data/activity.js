@@ -24,8 +24,27 @@ export const activityEventTypes = [
 
 export const eventTypeLabel = (id) => activityEventTypes.find((t) => t.id === id)?.label ?? id;
 
-/** Sorted newest first. `dateKey` is ISO so date-range filtering is trivial. */
-export const mockActivity = [
+/**
+ * Minutes since midnight for a "9:05 AM" style stamp, so events inside one day
+ * sort correctly. Events written at runtime carry "Just now" and sort to the top.
+ */
+function minutesOf(time) {
+  if (!time || time === 'Just now') return 24 * 60 + 1;
+  const m = /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i.exec(time.trim());
+  if (!m) return 0;
+  const hour = Number(m[1]) % 12;
+  const pm = m[3].toUpperCase() === 'PM';
+  return (hour + (pm ? 12 : 0)) * 60 + Number(m[2]);
+}
+
+/** Newest first — by date, then by time within the day. */
+export const sortActivity = (events) =>
+  [...events].sort((a, b) =>
+    a.dateKey === b.dateKey ? minutesOf(b.time) - minutesOf(a.time) : a.dateKey < b.dateKey ? 1 : -1,
+  );
+
+/** `dateKey` is ISO so date-range filtering is a plain string comparison. */
+const activityEvents = [
   {
     id: 'ev-001',
     type: 'upload',
@@ -287,3 +306,6 @@ export const mockActivity = [
     ip: '—',
   },
 ];
+
+/** The exported feed is always sorted, so every screen renders it in order. */
+export const mockActivity = sortActivity(activityEvents);

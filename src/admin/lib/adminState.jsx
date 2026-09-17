@@ -87,7 +87,8 @@ export function AdminStateProvider({ children }) {
           location: draft.location,
           locations: Number(draft.locations) || 1,
           providers: Number(draft.providers) || 1,
-          established: Number(draft.established) || new Date().getFullYear(),
+          /* No invented year — an unknown establishment date stays unknown. */
+          established: Number(draft.established) || '—',
           annualRevenue: draft.annualRevenue || '—',
           ebitda: draft.ebitda || '—',
         },

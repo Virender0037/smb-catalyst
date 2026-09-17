@@ -480,6 +480,10 @@ button.ad-stat:active { transform: translateY(0.5px); }
   flex: 1; overflow-y: auto; padding: var(--sp-5);
   display: flex; flex-direction: column; gap: var(--sp-5);
 }
+/* The body is a height-constrained flex column, so children would otherwise
+   shrink below their content and `.ad-section { overflow: hidden }` would clip
+   them. Keep natural heights and let the body scroll instead. */
+.ad-drawer-body > * { flex: none; }
 .ad-drawer-foot {
   flex: none; padding: var(--sp-4) var(--sp-5); border-top: 1px solid var(--smb-line);
   background: var(--smb-surface-2);

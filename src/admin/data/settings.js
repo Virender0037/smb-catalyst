@@ -72,8 +72,10 @@ export const mockSettings = {
       { id: 'buyer-activity', label: 'Buyer Activity', defaultVisibility: 'Internal only', locked: false },
       { id: 'closing', label: 'Closing', defaultVisibility: 'Restricted by role', locked: false },
     ],
-    allowedFileTypes: ['PDF', 'DOCX', 'XLSX', 'CSV', 'PNG', 'JPG', 'ZIP'],
-    blockedFileTypes: ['EXE', 'BAT', 'JS', 'HEIC'],
+    allowedFileTypes: ['PDF', 'DOCX', 'XLSX', 'CSV', 'PNG', 'JPG', 'HEIC', 'ZIP'],
+    /* Executables only. Phone formats such as HEIC are allowed through and
+       converted on filing — clients do send signature-page photos. */
+    blockedFileTypes: ['EXE', 'BAT', 'JS', 'MSI'],
     maxFileSizeMb: 50,
     maxFilesPerUpload: 10,
     versioning: true,
