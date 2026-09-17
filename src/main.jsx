@@ -14,6 +14,10 @@ import './styles/charts.css';
 import './styles/layout.css';
 import './styles/auth.css';
 import './styles/pages.css';
+/* Admin console styles come last so its density overrides land on top of the
+   shared primitives. Every selector is `.ad-*`, so the client portal is
+   unaffected by its presence. */
+import './styles/admin.css';
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>

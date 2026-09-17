@@ -14,6 +14,11 @@ import Requests from './pages/Requests';
 import Activity from './pages/Activity';
 import NotFound from './pages/NotFound';
 
+/* The internal admin console. Entirely self-contained under /admin — it has its
+   own session, state provider and stylesheet and shares only the brand tokens
+   and UI primitives with the client portal. */
+import AdminApp from './admin/AdminApp';
+
 /** Gate for the authenticated portal. Front-end only — see lib/session.jsx. */
 function RequireSession({ children }) {
   const { isAuthenticated } = useSession();
@@ -26,6 +31,8 @@ function RequireSession({ children }) {
 function useDocumentTitle() {
   const { pathname } = useLocation();
   useEffect(() => {
+    // The admin console sets its own title (see admin/AdminApp.jsx).
+    if (pathname.startsWith('/admin')) return;
     const page = pageMeta[pathname]?.title;
     document.title = page
       ? `${page} · SMB Client Portal`
@@ -67,6 +74,9 @@ export default function App() {
         <Route path="/requests" element={<Requests />} />
         <Route path="/activity" element={<Activity />} />
       </Route>
+
+      {/* Internal staff console — separate from the client portal above. */}
+      <Route path="/admin/*" element={<AdminApp />} />
 
       <Route path="*" element={<NotFound />} />
     </Routes>

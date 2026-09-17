@@ -1,8 +1,16 @@
-# Strategic Medical Brokers — Client Portal (UI prototype)
+# Strategic Medical Brokers — Client Portal & Admin Portal (UI prototype)
 
 Front-end only. Every screen runs on centralised mock data — there is no backend,
-no authentication, no Zoho CRM or Catalyst integration, and no BizBuySell
-connection of any kind. This build exists to obtain UI/UX approval.
+no authentication, no Zoho CRM or Catalyst integration, no document storage, no
+email delivery and no BizBuySell connection of any kind. This build exists to
+obtain UI/UX approval.
+
+Two separate experiences share one bundle:
+
+| Experience | Entry point | Audience |
+| --- | --- | --- |
+| **Client Portal** | `http://localhost:5173/#/login` | The selling practice |
+| **Admin Portal** | `http://localhost:5173/#/admin` | Internal SMB staff |
 
 ## Run it
 
@@ -11,7 +19,10 @@ npm install     # first time only
 npm run dev     # http://localhost:5173
 ```
 
-Sign in with **any** email and password, then **any** 6-digit code.
+**Client portal** — sign in with **any** email and password, then **any** 6-digit code.
+
+**Admin portal** — open `#/admin`. The staff sign-in is pre-filled; click
+**Sign in to the console**. Nothing is verified.
 
 ```bash
 npm run build     # static bundle -> dist/
@@ -56,9 +67,10 @@ Three runtime dependencies in total: `react`, `react-dom`, `react-router-dom`.
 
 ```
 src/
-  data/           mock data — the single seam to replace with Catalyst APIs
+  data/           client-portal mock data — the seam to replace with Catalyst APIs
   lib/            hooks, formatting, demo session, shared portal state
-  styles/         tokens -> base -> brand -> ui -> charts -> layout -> auth -> pages
+  styles/         tokens -> base -> brand -> ui -> charts -> layout -> auth
+                  -> pages -> admin
   components/
     ui/           buttons, fields, cards, badges, modal, toast, icons, logo
     charts/       BarChart, LineChart, Sparkline, axis scale helpers
@@ -66,16 +78,56 @@ src/
     dashboard/    EngagementPanel, DashboardSkeleton
   pages/          Login, VerifyMobile, VerifyCode, Overview, Marketing,
                   Documents, Requests, Activity, NotFound
+
+  admin/          the internal console — entirely self-contained
+    AdminApp.jsx  routes, staff gate, providers
+    data/         admin mock data barrel (clients, users, documents, requests,
+                  marketing, activity, notifications, roles, settings, staff,
+                  dashboard selectors)
+    lib/          adminState (local mutations), adminSession, adminFormat
+    layout/       AdminShell (rail/topbar/sheet), adminNav
+    components/   DataTable, Drawer, AdminIcon, controls (toolbar, toggle,
+                  stat tile, action menu, detail list, section)
+    dialogs/      AddClient, InviteUser, CreateRequest, UploadDocument
+    pages/        Dashboard, Clients, Client360, ClientPreview, PortalUsers,
+                  Documents (+Inbox), Requests, Marketing, Activity,
+                  Notifications, Roles, Settings, Login, NotFound
 ```
+
+The admin portal shares the brand tokens and UI primitives with the client
+portal and nothing else. Its CSS is namespaced `.ad-*`, its state and session
+live under `src/admin/lib/`, and the only client-portal file it touches is
+`src/App.jsx` (one `/admin/*` route) and `src/main.jsx` (one CSS import).
 
 ## Replacing the mock data
 
-Every screen imports data from `src/data/` (re-exported by `src/data/index.js`).
-Anything the prototype mutates locally — documents and requests —
-flows through `src/lib/portalState.jsx`, which is seeded from those same mocks.
+The client portal imports data from `src/data/` (barrel: `src/data/index.js`);
+the admin portal imports from `src/admin/data/` (barrel: `src/admin/data/index.js`).
+No component contains a hardcoded record.
 
-To go live: swap the mock imports in `portalState.jsx` for Catalyst function
+Anything either prototype mutates locally flows through a provider seeded from
+those mocks — `src/lib/portalState.jsx` for the client portal, and
+`src/admin/lib/adminState.jsx` for the admin portal.
+
+To go live: swap the mock imports in those two providers for Catalyst function
 calls and keep the exported shapes. No component markup needs to change.
+
+## What the admin portal deliberately does not do
+
+The console is UI only. These controls are present and legible, but inert:
+
+- **Zoho CRM** — no sync. Clients, engagements and stages are mock records.
+- **Authentication** — the staff sign-in accepts anything; the client-side
+  invitation flow (invite → client activates → client sets password → MFA) is
+  described in the UI but never executed. Staff never see or set a client password.
+- **Document storage** — no file is read, stored, scanned or downloaded.
+- **Watermarking** — the settings and per-document toggles define the intended
+  behaviour (viewer email + download timestamp). Nothing is rendered.
+- **BizBuySell** — no integration, feed or scraping. All listing figures are
+  fabricated; "Refresh" only moves a timestamp.
+- **Email** — no message is sent. "Preview" renders a template in a dialog.
+- **Permissions** — the matrix is a design artefact for sign-off; enforcement
+  belongs server-side.
 
 ## Deploying to Catalyst client hosting
 
