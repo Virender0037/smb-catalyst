@@ -4,6 +4,7 @@
  */
 export const mockSupport = {
   line: '888-970-1210',
+  lineHref: 'tel:8889701210',
   email: 'clientcare@strategicmedicalbrokers.com',
   hours: 'Mon–Fri, 8:00 AM – 6:00 PM MST',
 };

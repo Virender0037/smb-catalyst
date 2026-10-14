@@ -153,11 +153,15 @@ export default function Requests() {
                       </span>
                       <span className="request-meta-item">
                         <Icon name="calendar" size={13} />
-                        {r.status === 'Completed'
-                          ? `Completed ${r.completedOn}`
-                          : r.status === 'Received'
-                            ? `Received ${r.receivedOn}`
-                            : `Due ${r.dueDate}`}
+                        {r.status === 'Completed' ? (
+                          `Completed ${r.completedOn}`
+                        ) : r.status === 'Received' ? (
+                          `Received ${r.receivedOn}`
+                        ) : (
+                          <span>
+                            Due <strong className="request-due">{r.dueDate}</strong>
+                          </span>
+                        )}
                       </span>
                       <span className="request-meta-item">
                         <Icon name="team" size={13} /> Requested by {r.requestedBy}

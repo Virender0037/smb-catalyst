@@ -293,6 +293,7 @@
   flex-wrap: wrap; font-size: var(--fs-xs); color: var(--smb-text-3);
 }
 .request-meta-item { display: flex; align-items: center; gap: 5px; }
+.request-due { font-weight: 700; }
 .request-actions { flex: none; display: flex; align-items: flex-start; gap: var(--sp-2); }
 
 .request-summary {

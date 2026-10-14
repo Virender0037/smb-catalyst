@@ -4,15 +4,17 @@ import { Avatar, Badge, Button, EmptyState } from '../../components/ui';
 import Icon from '../components/AdminIcon';
 import Sparkline from '../../components/charts/Sparkline';
 import DataTable from '../components/DataTable';
+import Drawer from '../components/Drawer';
 import { ActionMenu, DetailList, PageHeader, PrototypeNote, Section, Toggle } from '../components/controls';
 import InviteUserDialog from '../dialogs/InviteUserDialog';
 import CreateRequestDialog from '../dialogs/CreateRequestDialog';
 import UploadDocumentDialog from '../dialogs/UploadDocumentDialog';
 import { useAdminState } from '../lib/adminState';
-import { engagementStages, staffById } from '../data';
+import { buyersForClient, engagementStages, staffById } from '../data';
 import { activityEventTypes } from '../data/activity';
 import {
   accountStatusTone,
+  buyerStageTone,
   crmStatusTone,
   docStatusTone,
   dueLabel,
@@ -83,6 +85,7 @@ export default function AdminClient360() {
   const state = useAdminState();
   const [tab, setTab] = useState('overview');
   const [dialog, setDialog] = useState(null);
+  const [buyerId, setBuyerId] = useState(null);
 
   const client = state.clientById(clientId);
 
@@ -91,6 +94,7 @@ export default function AdminClient360() {
   const requests = useMemo(() => (client ? state.requestsForClient(client.id) : []), [client, state]);
   const listing = useMemo(() => (client ? state.listingForClient(client.id) : null), [client, state]);
   const events = useMemo(() => (client ? state.activityForClient(client.id) : []), [client, state]);
+  const buyers = useMemo(() => (client ? buyersForClient(client.id) : []), [client]);
 
   if (!client) {
     return (
@@ -117,6 +121,12 @@ export default function AdminClient360() {
   const support = staffById(client.supportAdvisorId);
 
   const setVis = (mutate) => state.updateVisibility(client.id, mutate);
+  const activeBuyer = buyers.find((b) => b.id === buyerId) ?? null;
+  const clientBuyerDisplay = {
+    Named: 'Named — shown to the client by name',
+    Anonymised: 'Anonymised — shown to the client as a numbered buyer',
+    Hidden: 'Hidden — not shown to the client',
+  }[client.visibility.buyerIdentities];
 
   return (
     <>
@@ -349,6 +359,31 @@ export default function AdminClient360() {
                   Buyer identities are shown to this client as: <strong>{client.visibility.buyerIdentities}</strong>
                 </p>
               </div>
+            </Section>
+
+            <Section title="Buyers" sub="Current stage of each buyer in this engagement. Internal only." flush>
+              {buyers.length === 0 ? (
+                <EmptyState icon="team" title="No buyers recorded" text="Buyers appear here once they enter the process." />
+              ) : (
+                buyers.map((b) => (
+                  <div className="ad-mini-row" key={b.id}>
+                    <div className="ad-mini-body">
+                      <p className="ad-mini-title">
+                        <button
+                          type="button"
+                          className="btn btn-link"
+                          onClick={() => setBuyerId(b.id)}
+                          aria-label={`Open ${b.name} details`}
+                        >
+                          {b.name}
+                        </button>
+                      </p>
+                      <p className="ad-mini-meta">{b.id}</p>
+                    </div>
+                    <Badge tone={buyerStageTone(b.stage)}>{b.stage}</Badge>
+                  </div>
+                ))
+              )}
             </Section>
 
             <Section
@@ -854,6 +889,34 @@ export default function AdminClient360() {
           </div>
         </Section>
       )}
+
+      {/* -------------------------------------------------- buyer detail */}
+      <Drawer
+        open={Boolean(activeBuyer)}
+        onClose={() => setBuyerId(null)}
+        eyebrow="Buyer"
+        title={activeBuyer?.name ?? ''}
+        subtitle={activeBuyer ? `${client.practice.name} · ${client.engagementRef}` : ''}
+      >
+        {activeBuyer && (
+          <>
+            <div className="ad-cell-inline">
+              <Badge tone={buyerStageTone(activeBuyer.stage)}>{activeBuyer.stage}</Badge>
+            </div>
+            <DetailList
+              items={[
+                { label: 'Current stage', value: activeBuyer.stage },
+                { label: 'Buyer reference', value: activeBuyer.id },
+                { label: 'Engagement', value: `${client.practice.name} · ${activeBuyer.engagementRef}` },
+                { label: 'Client portal display', value: clientBuyerDisplay },
+              ]}
+            />
+            <PrototypeNote>
+              Internal mock record. Buyer details are visible to SMB staff only and are not linked to a CRM record.
+            </PrototypeNote>
+          </>
+        )}
+      </Drawer>
 
       <InviteUserDialog open={dialog === 'invite'} onClose={() => setDialog(null)} clientId={client.id} />
       <CreateRequestDialog open={dialog === 'request'} onClose={() => setDialog(null)} clientId={client.id} />

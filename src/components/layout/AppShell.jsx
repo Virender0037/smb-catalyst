@@ -171,7 +171,11 @@ export default function AppShell() {
             <Icon name="phone" size={17} style={{ color: 'var(--brand-primary)', flex: 'none', marginTop: 2 }} />
             <div style={{ minWidth: 0 }}>
               <p className="sidebar-support-title">Client care</p>
-              <p className="sidebar-support-text">{mockSupport.line}</p>
+              <p className="sidebar-support-text">
+                <a href={mockSupport.lineHref} className="sidebar-support-link">
+                  {mockSupport.line}
+                </a>
+              </p>
               <p className="sidebar-support-text">{mockSupport.hours}</p>
             </div>
           </div>
@@ -196,7 +200,11 @@ export default function AppShell() {
                 <Icon name="phone" size={17} style={{ color: 'var(--brand-primary)', flex: 'none', marginTop: 2 }} />
                 <div style={{ minWidth: 0 }}>
                   <p className="sidebar-support-title">Client care</p>
-                  <p className="sidebar-support-text">{mockSupport.line}</p>
+                  <p className="sidebar-support-text">
+                    <a href={mockSupport.lineHref} className="sidebar-support-link">
+                      {mockSupport.line}
+                    </a>
+                  </p>
                 </div>
               </div>
             </div>

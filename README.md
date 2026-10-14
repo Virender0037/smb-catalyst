@@ -128,6 +128,11 @@ The console is UI only. These controls are present and legible, but inert:
 - **Email** — no message is sent. "Preview" renders a template in a dialog.
 - **Permissions** — the matrix is a design artefact for sign-off; enforcement
   belongs server-side.
+- **Staff buyer permissions (future requirement)** — every signed-in staff
+  member can currently see the Buyers list and buyer details on Client 360.
+  Restricting buyer records by staff role (e.g. deal team only) is planned
+  but not implemented; it should be enforced server-side with the other
+  staff permissions.
 
 ## Deploying to Catalyst client hosting
 

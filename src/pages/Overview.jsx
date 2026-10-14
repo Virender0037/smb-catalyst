@@ -6,6 +6,8 @@ import ActivityItem from '../components/ActivityItem';
 import Sparkline from '../components/charts/Sparkline';
 import { Badge, Card, CardHead, Delta, Icon } from '../components/ui';
 import { mockActivity } from '../data/activity';
+import { advisorsForEngagement } from '../data/advisors';
+import { mockClient } from '../data/client';
 import { mockEngagement, mockMilestones } from '../data/engagement';
 import { defaultRangeId, getMarketingTotals, marketingRanges, mockListing } from '../data/marketing';
 import { usePortalState } from '../lib/portalState';
@@ -47,6 +49,7 @@ export default function Overview() {
   const totals = getMarketingTotals(defaultRangeId);
   const rangeLabel = marketingRanges.find((r) => r.id === defaultRangeId)?.label ?? '';
   const recent = mockActivity.slice(0, 5);
+  const advisors = advisorsForEngagement(mockClient.engagementRef);
 
   if (loading) return <DashboardSkeleton />;
 
@@ -87,7 +90,7 @@ export default function Overview() {
                   <div className="req-line-body">
                     <p className="req-line-title">{r.title}</p>
                     <p className="req-line-meta">
-                      {r.category} · Due {r.dueDate} · Requested by {r.requestedBy}
+                      {r.category} · Due <strong className="request-due">{r.dueDate}</strong> · Requested by {r.requestedBy}
                     </p>
                   </div>
                   <Badge tone={statusTone(r.status)}>{r.status}</Badge>
@@ -230,6 +233,34 @@ export default function Overview() {
             <div className="card-foot">
               <span className="muted-3" style={{ fontSize: 'var(--fs-xs)' }}>
                 Dates are indicative and confirmed with you before each step.
+              </span>
+            </div>
+          </Card>
+
+          {/* The client's own outside professionals on this engagement */}
+          <Card aria-labelledby="advisors-heading">
+            <CardHead id="advisors-heading" title="Client's Advisors" sub="Your outside professionals on this engagement" />
+            <div style={{ marginTop: 16 }}>
+              {advisors.map(({ id, label, icon, role, advisor }) => {
+                const name = advisor?.name;
+                const contact = [advisor?.firm, advisor?.phone, advisor?.email].filter(Boolean).join(' · ');
+                return (
+                  <div className="req-line" key={id}>
+                    <span className="req-line-icon" aria-hidden="true">
+                      <Icon name={icon} size={16} />
+                    </span>
+                    <div className="req-line-body">
+                      <p className="req-line-title">{label}</p>
+                      <p className="req-line-meta">{name ? [name, contact].filter(Boolean).join(' · ') : role}</p>
+                    </div>
+                    {name ? <Badge tone="success">On file</Badge> : <Badge tone="neutral">Not yet provided</Badge>}
+                  </div>
+                );
+              })}
+            </div>
+            <div className="card-foot">
+              <span className="muted-3" style={{ fontSize: 'var(--fs-xs)' }}>
+                Share your advisors&apos; details with your deal team to add them here.
               </span>
             </div>
           </Card>

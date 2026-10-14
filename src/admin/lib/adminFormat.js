@@ -128,6 +128,20 @@ export const visibilityTone = (v) => {
   }
 };
 
+/** Buyer stage -> badge tone. */
+export const buyerStageTone = (stage) => {
+  switch (stage) {
+    case 'LOI presented':
+      return 'success';
+    case 'Buyer-Seller virtual meeting':
+      return 'accent';
+    case 'No longer interested':
+      return 'neutral';
+    default:
+      return 'info';
+  }
+};
+
 export const docStatusTone = (status) => {
   switch (status) {
     case 'Final':
